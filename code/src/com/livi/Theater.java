@@ -1,12 +1,12 @@
 package com.livi;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 
 public class Theater {
 
     private final String theaterName;
-    private List<Seat> seats = new ArrayList<>();
+    private Collection<Seat> seats = new LinkedHashSet<>();
 
     public Theater(String theaterName, int numRows, int seatsPerRow) {
         this.theaterName = theaterName;
@@ -48,12 +48,17 @@ public class Theater {
         }
     }
 
-    private class Seat {
+    private class Seat implements Comparable<Seat> {
         private final String seatNumber;
         private boolean reserved = false;
 
         public Seat(String seatNumber) {
             this.seatNumber = seatNumber;
+        }
+
+        @Override
+        public int compareTo(Seat seat) {
+            return this.seatNumber.compareTo(seat.getSeatNumber());
         }
 
         public boolean reserve() {
