@@ -1,12 +1,13 @@
 package com.livi;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Theater {
 
     private final String theaterName;
-    private Collection<Seat> seats = new LinkedHashSet<>();
+    private List<Seat> seats = new ArrayList<>();
 
     public Theater(String theaterName, int numRows, int seatsPerRow) {
         this.theaterName = theaterName;
@@ -24,20 +25,28 @@ public class Theater {
     }
 
     public boolean reserveSeat(String seatNumber) {
-        Seat requestedSeat = null;
-        for(Seat seat : seats) {
-            if(seat.getSeatNumber().equals(seatNumber)) {
-                requestedSeat = seat;
-                break;
-            }
-        }
-
-        if(requestedSeat == null) {
+        Seat requestedSeat = new Seat(seatNumber);
+        int foundSeat = Collections.binarySearch(seats, requestedSeat, null);
+        if(foundSeat >= 0) {
+            return seats.get(foundSeat).reserve();
+        } else {
             System.out.println("There is no seat " + seatNumber);
             return false;
         }
 
-        return requestedSeat.reserve();
+//        for(Seat seat : seats) {
+//            if(seat.getSeatNumber().equals(seatNumber)) {
+//                requestedSeat = seat;
+//                break;
+//            }
+//        }
+//
+//        if(requestedSeat == null) {
+//            System.out.println("There is no seat " + seatNumber);
+//            return false;
+//        }
+//
+//        return requestedSeat.reserve();
     }
 
     // for testing purposes
