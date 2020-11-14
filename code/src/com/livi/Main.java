@@ -35,6 +35,10 @@ public class Main {
         System.out.println("Min seat number is " + minSeat.getSeatNumber());
         System.out.println("Max seat number is " + maxSeat.getSeatNumber());
 
+        sortList(seatCopy);
+        System.out.println("Printing sorted seatCopy");
+        printList(seatCopy);
+
     }
 
     public static void printList(List<Theater.Seat> list) {
@@ -43,6 +47,16 @@ public class Main {
         }
         System.out.println();
         System.out.println("==================================================");
+    }
+
+    public static void sortList(List<? extends Theater.Seat> list) {
+        for(int i = 1; i < list.size() - 1; i++) {
+            for(int j = (i + 1); j < list.size(); j++) {
+                if(list.get(i).compareTo(list.get(j)) > 0) {
+                    Collections.swap(list, i, j);
+                }
+            }
+        }
     }
 
 }
